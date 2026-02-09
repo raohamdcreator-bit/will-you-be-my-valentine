@@ -5,8 +5,17 @@ import FinalYes from "./components/YesScreen";
 function App() {
   const [saidYes, setSaidYes] = useState(false);
 
+  const appStyle = {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'linear-gradient(to bottom right, #fbcfe8, #fca5a5)',
+    overflow: 'hidden'
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 to-red-300">
+    <div style={appStyle}>
       {!saidYes ? (
         <ValentineCard onYes={() => setSaidYes(true)} />
       ) : (
