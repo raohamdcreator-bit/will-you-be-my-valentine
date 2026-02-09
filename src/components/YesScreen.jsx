@@ -112,10 +112,10 @@ export default function FinalYes() {
                     }}
                 />
                 <h1 className="text-glow" style={{
-                    fontSize: '1.675rem',
+                    fontSize: '1.575rem',
                     fontWeight: 'bold',
                     color: '#ffffff',
-                    lineHeight: '2.25rem'
+                    lineHeight: '1.25rem'
                 }}>
                     YAY!! I knew you'd say yes 💕
                     <br />
