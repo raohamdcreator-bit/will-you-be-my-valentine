@@ -91,7 +91,7 @@ export default function FinalYes() {
                         animationDuration: `${heart.duration}s`
                     }}
                 >
-                    {Math.random() > 0.5 ? '❤️' : '💖'}
+                    {Math.random() > 0.5 ? '😘' : '💖':'🎉'}
                 </div>
             ))}
             
@@ -117,9 +117,9 @@ export default function FinalYes() {
                     color: '#ffffff',
                     lineHeight: '2.25rem'
                 }}>
-                    YAY!! I knew you'd say yes.
+                    YAY!! I knew you'd say yes 💕
                     <br />
-                    You were just pretending 💖😌
+                    You were just pretending 😌
                 </h1>
             </div>
         </>
