@@ -36,7 +36,7 @@ export default function ValentineCard({ onYes }) {
             let x, y;
             do {
                 x = Math.random() * 240 - 120; // -120 to 120
-                y = Math.random() * 120 - 60;  // -60 to 60
+                y = Math.random() * 120 - 60;  
             } while (Math.abs(x) < 50 && Math.abs(y) < 35); // Avoid center
             return { x, y };
         }
