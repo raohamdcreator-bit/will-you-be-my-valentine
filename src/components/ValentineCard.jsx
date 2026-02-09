@@ -19,7 +19,6 @@ export default function ValentineCard({ onYes }) {
         const isMobile = window.innerWidth < 640;
         
         if (isMobile) {
-            // On mobile, move button to predefined safe positions
             const directions = [
                 { x: -120, y: 0 },    // Left
                 { x: 120, y: 0 },     // Right
@@ -32,12 +31,11 @@ export default function ValentineCard({ onYes }) {
             ];
             return directions[Math.floor(Math.random() * directions.length)];
         } else {
-            // On desktop, use wider range
             let x, y;
             do {
-                x = Math.random() * 240 - 120; // -120 to 120
-                y = Math.random() * 120 - 60;  
-            } while (Math.abs(x) < 50 && Math.abs(y) < 35); // Avoid center
+                x = Math.random() * 240 - 120;
+                y = Math.random() * 120 - 60;
+            } while (Math.abs(x) < 50 && Math.abs(y) < 35);
             return { x, y };
         }
     };
@@ -49,29 +47,96 @@ export default function ValentineCard({ onYes }) {
         }
     };
 
+    // Inline styles to ensure they work even without Tailwind
+    const cardStyle = {
+        backgroundColor: '#ffffff',
+        borderRadius: '1rem',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        padding: '2rem',
+        textAlign: 'center',
+        maxWidth: '24rem',
+        position: 'relative'
+    };
+
+    const imageStyle = {
+        margin: '0 auto 1rem auto',
+        width: '11rem',
+        pointerEvents: 'none'
+    };
+
+    const textStyle = {
+        fontSize: '1.25rem',
+        fontWeight: '600',
+        color: '#db2777', // pink-600
+        marginBottom: '1.5rem',
+        pointerEvents: 'none'
+    };
+
+    const buttonContainerStyle = {
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '1.5rem',
+        paddingTop: '1rem',
+        paddingBottom: '1rem',
+        minHeight: '140px'
+    };
+
+    const yesButtonStyle = {
+        padding: '0.5rem 1.5rem',
+        backgroundColor: '#ec4899', // pink-500
+        color: '#ffffff',
+        borderRadius: '9999px',
+        border: 'none',
+        cursor: 'pointer',
+        transition: 'background-color 0.2s',
+        zIndex: 20,
+        height: 'fit-content',
+        alignSelf: 'flex-start',
+        fontSize: '1rem',
+        fontWeight: '500'
+    };
+
+    const noButtonStyle = {
+        padding: '0.5rem 1.5rem',
+        backgroundColor: '#f472b6', // pink-400
+        color: '#ffffff',
+        borderRadius: '9999px',
+        border: 'none',
+        cursor: 'pointer',
+        transition: 'background-color 0.2s',
+        position: 'absolute',
+        left: '50%',
+        zIndex: 10,
+        height: 'fit-content',
+        touchAction: 'none',
+        marginLeft: '40px',
+        fontSize: '1rem',
+        fontWeight: '500'
+    };
+
     return (
-        <div className="bg-white rounded-2xl shadow-xl p-8 text-center max-w-sm">
+        <div style={cardStyle}>
             <img
                 src={currentStep.img}
                 alt="emotion"
-                className="mx-auto mb-4 w-44 pointer-events-none"
+                style={imageStyle}
             />
 
-            <p className="text-xl font-semibold text-pink-600 mb-6 pointer-events-none">
+            <p style={textStyle}>
                 {currentStep.text}
             </p>
 
-            {/* Button container with enough space for movement */}
-            <div className="relative flex justify-center gap-6 pt-4 pb-4" style={{ minHeight: '140px' }}>
-                {/* Yes button - static position */}
+            <div style={buttonContainerStyle}>
                 <button
                     onClick={onYes}
-                    className="px-6 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition-colors z-20 h-fit self-start"
+                    style={yesButtonStyle}
+                    onMouseEnter={(e) => e.target.style.backgroundColor = '#db2777'}
+                    onMouseLeave={(e) => e.target.style.backgroundColor = '#ec4899'}
                 >
                     Yes ❤️
                 </button>
 
-                {/* No button - appears and moves */}
                 {noCount < 10 && (
                     <motion.button
                         onMouseEnter={handleNoInteraction}
@@ -79,11 +144,9 @@ export default function ValentineCard({ onYes }) {
                         onClick={handleNoInteraction}
                         animate={position}
                         transition={{ type: "spring", stiffness: 250, damping: 15 }}
-                        className="px-6 py-2 bg-gray-400 text-white rounded-full hover:bg-gray-500 transition-colors absolute left-1/2 z-10 h-fit"
-                        style={{ 
-                            touchAction: 'none',
-                            marginLeft: '40px' // Offset from center to sit next to Yes button initially
-                        }}
+                        style={noButtonStyle}
+                        onMouseOver={(e) => e.target.style.backgroundColor = '#ec4899'}
+                        onMouseOut={(e) => e.target.style.backgroundColor = '#f472b6'}
                     >
                         No 😐
                     </motion.button>
