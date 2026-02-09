@@ -178,7 +178,7 @@ export default function ValentineCard({ onYes }) {
                             e.target.style.transform = 'scale(1)';
                         }}
                     >
-                        Yes ❤️
+                        Yes 🥰
                     </button>
 
                     {noCount < 10 && (
@@ -192,7 +192,7 @@ export default function ValentineCard({ onYes }) {
                             onMouseOver={(e) => e.target.style.backgroundColor = '#22d3ee'}
                             onMouseOut={(e) => e.target.style.backgroundColor = '#67e8f9'}
                         >
-                            No 😐
+                            No 😔
                         </motion.button>
                     )}
                 </div>
