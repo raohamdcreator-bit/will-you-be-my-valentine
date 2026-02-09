@@ -112,7 +112,7 @@ export default function FinalYes() {
                     }}
                 />
                 <h1 className="text-glow" style={{
-                    fontSize: '1.875rem',
+                    fontSize: '1.675rem',
                     fontWeight: 'bold',
                     color: '#ffffff',
                     lineHeight: '2.25rem'
