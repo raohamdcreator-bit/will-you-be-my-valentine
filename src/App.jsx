@@ -1,28 +1,29 @@
-import { useState } from "react";
-import ValentineCard from "./components/ValentineCard";
-import FinalYes from "./components/YesScreen";
+import { useEffect, useState } from "react";
+import UnlockScreen from "./components/UnlockScreen";
+import ValentineExperience from "./components/ValentineExperience";
 
 function App() {
-  const [saidYes, setSaidYes] = useState(false);
+  const [route, setRoute] = useState('loading');
 
-  const appStyle = {
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'linear-gradient(to bottom right, #fbcfe8, #fca5a5)',
-    overflow: 'hidden'
-  };
+  useEffect(() => {
+    const path = window.location.pathname;
+    
+    if (path === '/valentine') {
+      setRoute('valentine');
+    } else {
+      setRoute('unlock');
+    }
+  }, []);
 
-  return (
-    <div style={appStyle}>
-      {!saidYes ? (
-        <ValentineCard onYes={() => setSaidYes(true)} />
-      ) : (
-        <FinalYes />
-      )}
-    </div>
-  );
+  if (route === 'loading') {
+    return null;
+  }
+
+  if (route === 'valentine') {
+    return <ValentineExperience />;
+  }
+
+  return <UnlockScreen />;
 }
 
 export default App;
