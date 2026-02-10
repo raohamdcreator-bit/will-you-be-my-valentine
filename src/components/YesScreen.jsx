@@ -1,7 +1,20 @@
 import { useEffect, useState } from "react";
 
-export default function FinalYes() {
+export default function FinalYes({ names }) {
     const [hearts, setHearts] = useState([]);
+    const [showLink, setShowLink] = useState(false);
+    const [copied, setCopied] = useState(false);
+
+    // Generate shareable link
+    const shareableLink = names 
+        ? `${window.location.origin}/valentine?from=${encodeURIComponent(names.from)}&to=${encodeURIComponent(names.to)}`
+        : '';
+
+    const copyLink = () => {
+        navigator.clipboard.writeText(shareableLink);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     useEffect(() => {
         // Generate initial hearts
@@ -28,7 +41,13 @@ export default function FinalYes() {
             ].slice(-50)); // Keep only last 50 hearts
         }, 300);
 
-        return () => clearInterval(interval);
+        // Show shareable link after 2 seconds
+        const linkTimer = setTimeout(() => setShowLink(true), 2000);
+
+        return () => {
+            clearInterval(interval);
+            clearTimeout(linkTimer);
+        };
     }, []);
 
     return (
@@ -98,7 +117,8 @@ export default function FinalYes() {
             <div style={{
                 textAlign: 'center',
                 position: 'relative',
-                zIndex: 10
+                zIndex: 10,
+                padding: '1rem'
             }}>
                 <img
                     src="/final.jpg"
@@ -112,15 +132,77 @@ export default function FinalYes() {
                     }}
                 />
                 <h1 className="text-glow" style={{
-                    fontSize: '1.575rem',
+                    fontSize: '1.875rem',
                     fontWeight: 'bold',
                     color: '#ffffff',
-                    lineHeight: '1.25rem'
+                    lineHeight: '2.25rem',
+                    marginBottom: '1rem'
                 }}>
                     YAY!! I knew you'd say yes 💕
                     <br />
                     You were just pretending 😌
                 </h1>
+
+                {showLink && shareableLink && (
+                    <div style={{
+                        marginTop: '2rem',
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        padding: '1.5rem',
+                        borderRadius: '0.75rem',
+                        maxWidth: '400px',
+                        margin: '2rem auto 0',
+                        boxShadow: '0 0 20px rgba(236, 72, 153, 0.3)'
+                    }}>
+                        <p style={{
+                            fontSize: '0.875rem',
+                            color: '#db2777',
+                            marginBottom: '0.75rem',
+                            fontWeight: '600'
+                        }}>
+                            Share this moment 💝
+                        </p>
+                        <div style={{
+                            display: 'flex',
+                            gap: '0.5rem',
+                            alignItems: 'center',
+                            flexWrap: 'wrap'
+                        }}>
+                            <input
+                                type="text"
+                                value={shareableLink}
+                                readOnly
+                                onClick={(e) => e.target.select()}
+                                style={{
+                                    flex: 1,
+                                    minWidth: '200px',
+                                    padding: '0.5rem',
+                                    borderRadius: '0.375rem',
+                                    border: '1px solid #fbcfe8',
+                                    fontSize: '0.75rem',
+                                    backgroundColor: '#fef2f2',
+                                    cursor: 'pointer'
+                                }}
+                            />
+                            <button
+                                onClick={copyLink}
+                                style={{
+                                    padding: '0.5rem 1rem',
+                                    backgroundColor: copied ? '#10b981' : '#ec4899',
+                                    color: '#ffffff',
+                                    borderRadius: '0.375rem',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    fontSize: '0.875rem',
+                                    fontWeight: '600',
+                                    transition: 'background-color 0.2s',
+                                    whiteSpace: 'nowrap'
+                                }}
+                            >
+                                {copied ? '✓ Copied!' : 'Copy Link'}
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );
