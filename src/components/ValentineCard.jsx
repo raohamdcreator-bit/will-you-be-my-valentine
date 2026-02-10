@@ -161,9 +161,9 @@ export default function ValentineCard({ onYes }) {
                     style={imageStyle}
                 />
 
-                <p style={textStyle}>
-                    {currentStep.text}
-                </p>
+               <p style={textStyle}>
+  {noCount === 0 && names ? `${names.to}, will you be my Valentine? ❤️` : currentStep.text}
+</p>
 
                 <div style={buttonContainerStyle}>
                     <button
