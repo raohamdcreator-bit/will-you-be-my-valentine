@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { saveNames } from '../utils/storage';
-import { redirectToPayment } from '../utils/stripe';
 
 export default function UnlockScreen() {
   const [from, setFrom] = useState('');
@@ -10,7 +9,7 @@ export default function UnlockScreen() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('error') === 'payment_required') {
-      setError('🔒 Please unlock to continue');
+      setError('🔒 Please enter names to continue');
     }
   }, []);
 
@@ -21,7 +20,7 @@ export default function UnlockScreen() {
     }
     
     saveNames(from.trim(), to.trim());
-    redirectToPayment();
+    window.location.href = '/valentine';
   };
 
   return (
@@ -136,7 +135,7 @@ export default function UnlockScreen() {
             e.target.style.transform = 'scale(1)';
           }}
         >
-          Unlock for $1 💖
+          Create Valentine 💖
         </button>
 
         <p style={{
@@ -144,7 +143,7 @@ export default function UnlockScreen() {
           fontSize: '0.75rem',
           color: '#9ca3af'
         }}>
-          Secure payment via Stripe
+          Free demo - No payment required
         </p>
       </div>
     </div>
