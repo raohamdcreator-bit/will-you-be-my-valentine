@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { steps } from "../data/steps";
 
-export default function ValentineCard({ onYes }) {
+export default function ValentineCard({ names, onYes }) {
     const [noCount, setNoCount] = useState(0);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     
@@ -161,9 +161,9 @@ export default function ValentineCard({ onYes }) {
                     style={imageStyle}
                 />
 
-               <p style={textStyle}>
-  {noCount === 0 && names ? `${names.to}, will you be my Valentine? ❤️` : currentStep.text}
-</p>
+                <p style={textStyle}>
+                    {noCount === 0 && names ? `${names.to}, will you be my Valentine? ❤️` : currentStep.text}
+                </p>
 
                 <div style={buttonContainerStyle}>
                     <button
